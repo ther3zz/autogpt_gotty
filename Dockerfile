@@ -1,3 +1,4 @@
+#version2
 ARG GOTTY_VERSION=v1.5.0
 
 # Copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile
@@ -16,6 +17,7 @@ RUN tar -xzvf "gotty-$(uname -m).tar.gz"
 
 #install git for builder
 RUN apt-get -y update
+RUN apt-get -y upgrade
 RUN apt-get -y install git
 
 #Clone Auto-GPT github
@@ -33,6 +35,7 @@ COPY --chmod=+x --from=builder /build/gotty /bin/gotty
 
 # Install git
 RUN apt-get -y update
+RUN apt-get -y upgrade
 RUN apt-get -y install git chromium-driver
 
 
@@ -54,29 +57,6 @@ RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key
 ENV PIP_NO_CACHE_DIR=yes \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-#    PINECONE_API_KEY=${PINECONE_API_KEY} \
-#    PINECONE_ENV=${PINECONE_ENV} \
-#    OPENAI_API_KEY=${OPENAI_API_KEY} \
-#    ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY} \
-#    ELEVENLABS_VOICE_1_ID=${ELEVENLABS_VOICE_1_ID} \
-#    ELEVENLABS_VOICE_2_ID=${ELEVENLABS_VOICE_2_ID} \
-#    SMART_LLM_MODEL=${SMART_LLM_MODEL} \
-#    FAST_LLM_MODEL=${FAST_LLM_MODEL} \
-#    GOOGLE_API_KEY=${GOOGLE_API_KEY} \
-#    CUSTOM_SEARCH_ENGINE_ID=${CUSTOM_SEARCH_ENGINE_ID} 
-#    USE_AZURE=${USE_AZURE} \
-#    OPENAI_AZURE_API_BASE=${OPENAI_AZURE_API_BASE} \
-#    OPENAI_AZURE_API_VERSION=${OPENAI_AZURE_API_VERSION} \
-#    OPENAI_AZURE_DEPLOYMENT_ID=${OPENAI_AZURE_DEPLOYMENT_ID} \
-#    IMAGE_PROVIDER=${IMAGE_PROVIDER} \
-#    HUGGINGFACE_API_TOKEN=${HUGGINGFACE_API_TOKEN} \
-#    USE_MAC_OS_TTS=${USE_MAC_OS_TTS} \
-#    MEMORY_BACKEND=${MEMORY_BACKEND} \
-#    REDIS_HOST=${REDIS_HOST} \
-#    REDIS_PORT=${REDIS_PORT} \
-#    REDIS_PASSWORD=${REDIS_PASSWORD} \
-#    WIPE_REDIS_ON_START=${WIPE_REDIS_ON_START} \
-#    EXECUTE_LOCAL_COMMANDS=${EXECUTE_LOCAL_COMMANDS} \
     COMMAND_LINE_PARAMS=${COMMAND_LINE_PARAMS}
 
 # Create a non-root user and set permissions
@@ -87,8 +67,8 @@ USER appuser
 
 # Copy the requirements.txt file and install the requirements
 COPY --chown=appuser:appuser requirements.txt .
-RUN sed -i '/Items below this point will not be included in the Docker Image/,$d' requirements.txt && \
-	pip install --no-cache-dir --user -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir --user -r requirements.txt
 
 
 
