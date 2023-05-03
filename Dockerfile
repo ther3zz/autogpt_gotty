@@ -1,4 +1,4 @@
-#version2
+#version3
 ARG GOTTY_VERSION=v1.5.0
 
 # Copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile
@@ -51,7 +51,7 @@ RUN apt-get update \
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list \
     && apt-get update \
-    && apt-get install -y chromium firefox-esr
+    && apt-get install -y chromium firefox-esr curl jq wget
 
 # Set environment variables
 ENV PIP_NO_CACHE_DIR=yes \
