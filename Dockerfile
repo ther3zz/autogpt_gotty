@@ -1,7 +1,7 @@
 #version4
 ARG GOTTY_VERSION=v1.5.0
 
-# Some parts copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile
+# Copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile
 FROM debian:stable AS builder
 
 ARG GOTTY_VERSION
@@ -25,9 +25,6 @@ RUN git clone -b stable https://github.com/Significant-Gravitas/Auto-GPT.git
 
 
 
-
-
-
 # Use an official Python base image from the Docker Hub
 FROM python:3.10-slim
 
@@ -40,7 +37,7 @@ RUN apt-get update && apt-get install -y \
     ca-certificates
 	
 # Install utilities
-RUN apt-get install -y curl jq wget git	
+RUN apt-get install -y curl jq wget git	nano
 
 # Set environment variables
 ENV PIP_NO_CACHE_DIR=yes \
