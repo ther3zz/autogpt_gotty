@@ -1,4 +1,4 @@
-#version4
+#version5
 ARG GOTTY_VERSION=v1.5.0
 
 # Some parts copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile and https://github.com/Significant-Gravitas/Auto-GPT/blob/master/Dockerfile
