@@ -1,7 +1,7 @@
 #version4
 ARG GOTTY_VERSION=v1.5.0
 
-# Copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile
+# Some parts copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile and https://github.com/Significant-Gravitas/Auto-GPT/blob/master/Dockerfile
 FROM debian:stable AS builder
 
 ARG GOTTY_VERSION
@@ -68,4 +68,4 @@ EXPOSE 8080
 
 # Set the entrypoint
 WORKDIR /app
-CMD ["gotty", "--port", "8080", "--permit-write", "--title-format", "AutoGPT Terminal", "bash", "-c", "python -m autogpt ${COMMAND_LINE_PARAMS}"]
+CMD ["gotty", "--port", "8080", "--permit-write", "--title-format", "AutoGPT Terminal", "bash", "-c", "python -m autogpt --install-plugin-deps ${COMMAND_LINE_PARAMS}"]
