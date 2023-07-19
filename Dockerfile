@@ -1,4 +1,4 @@
-#version5
+#version7
 ARG GOTTY_VERSION=v1.5.0
 
 # Some parts copied from https://github.com/claytondukes/autogpt-docker/blob/main/Dockerfile and https://github.com/Significant-Gravitas/Auto-GPT/blob/master/Dockerfile
@@ -20,7 +20,7 @@ RUN apt-get -y update
 RUN apt-get -y upgrade
 RUN apt-get -y install git
 
-#Clone Auto-GPT github
+#Clone Auto-GPT github stable
 RUN git clone -b stable https://github.com/Significant-Gravitas/Auto-GPT.git
 
 
@@ -61,7 +61,8 @@ RUN pip install --upgrade pip && \
 # Copy the application files
 WORKDIR /app
 COPY --from=builder /build/Auto-GPT/ /app
-
+RUN curl -L -o ./plugins/Auto-GPT-Plugins.zip https://github.com/Significant-Gravitas/Auto-GPT-Plugins/archive/refs/heads/master.zip
+RUN wget https://raw.githubusercontent.com/ther3zz/autogpt_gotty/main/plugins_config.yaml
 
 EXPOSE 8080
 
