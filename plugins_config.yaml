@@ -1,0 +1,11 @@
+AutoGPTSpacePlugin:
+    config: {}
+    enabled: true
+    
+AutoGPTApiTools:
+    config: {}
+    enabled: true
+    
+AutoGPTWikipediaSearch:
+    config: {}
+    enabled: true
